@@ -8,6 +8,30 @@ Views use validated json-render specs and trusted local components. Arbitrary HT
 
 Model providers and domain tools are configured separately by the host. DeepSeek's branding, desktop, conversation, agent loop and existing tools remain unchanged.
 
+## See it in action
+
+Three short recordings of the real plugin UI using scripted, fictional examples. These show opening a workspace, saving inputs, and updating the layout while preserving those inputs. They are edited screen-capture sequences, not recordings of live model inference; idle time is omitted. No personal conversation history is included.
+
+### Moonbase launch room
+
+“Plan a lunar greenhouse launch with readiness, power budgets, and a pre-flight checklist.” Check off the seed vault, choose a landing zone, and watch a new action panel appear.
+
+![Moonbase workspace: checklist, saved mission inputs, and an added next-action panel](docs/demos/moon.gif)
+
+### Midnight noodle lab
+
+“Design a late-night ramen pop-up with recipe comparisons and tasting notes.” Pick the winning bowl, save tasting notes, and adapt the plan for opening night.
+
+![Noodle lab: recipe comparison, preparation checklist, and saved tasting notes](docs/demos/noodles.gif)
+
+### The missing museum moonstone
+
+“Build a detective case board with clues, leads, and a working theory.” Follow the archive lead, record a theory, and add the next investigation step.
+
+![Museum mystery: evidence board, selected lead, and a new investigation step](docs/demos/detective.gif)
+
+Demo fixtures are in [`scripts/demo-fixtures.mjs`](scripts/demo-fixtures.mjs).
+
 ## Build and install
 
 ```sh
@@ -35,3 +59,7 @@ Ask: “Build an adaptive workspace for comparing two proposals, with criteria a
 Invalid JSON is rejected; recovery currently depends on the model correcting its call. UI interactions save data but do not trigger a chat turn. The model composes the existing catalog; it cannot generate new executable components.
 
 Build and test with `npm run check`. Tests cover validation, persistence, revisions, session isolation, and bridge requests. Full TypeScript checking additionally requires DSH workspace type packages. Web-proxy and cross-platform lifecycle coverage remain work in progress.
+
+## Copyright
+
+Copyright © 2026 Maxi Heavy Industries. All rights reserved.
