@@ -10,27 +10,27 @@ Model providers and domain tools are configured separately by the host. DeepSeek
 
 ## See it in action
 
-Three short recordings of the real plugin UI using scripted, fictional examples. These show opening a workspace, saving inputs, and updating the layout while preserving those inputs. They are edited screen-capture sequences, not recordings of live model inference; idle time is omitted. No personal conversation history is included.
+Three live model-driven conversations in DeepSeek Harness: enter a prompt, submit it, and open an adaptive workspace beside the conversation. These GIFs use captured browser frames with generation waits and retry sequences cut for length; they do not imply instant or first-attempt generation. All example data is fictional, and the conversation-history sidebar is hidden.
 
 ### Moonbase launch room
 
-“Plan a lunar greenhouse launch with readiness, power budgets, and a pre-flight checklist.” Check off the seed vault, choose a landing zone, and watch a new action panel appear.
+A lunar greenhouse request becomes a mission workspace with readiness, power budgets, and a pre-flight checklist.
 
-![Moonbase workspace: checklist, saved mission inputs, and an added next-action panel](docs/demos/moon.gif)
+![Conversation to moonbase adaptive workspace](docs/demos/moon.gif)
 
 ### Midnight noodle lab
 
-“Design a late-night ramen pop-up with recipe comparisons and tasting notes.” Pick the winning bowl, save tasting notes, and adapt the plan for opening night.
+A ramen pop-up request becomes a bowl comparison and preparation workspace. The final frame checks off a prep task in the generated UI.
 
-![Noodle lab: recipe comparison, preparation checklist, and saved tasting notes](docs/demos/noodles.gif)
+![Ramen conversation, generated workspace, and checklist interaction](docs/demos/noodles.gif)
 
 ### The missing museum moonstone
 
-“Build a detective case board with clues, leads, and a working theory.” Follow the archive lead, record a theory, and add the next investigation step.
+A fictional museum mystery becomes a compact text clue board alongside the conversation. The requested richer layout did not succeed in this run; the clip shows the smaller working result.
 
-![Museum mystery: evidence board, selected lead, and a new investigation step](docs/demos/detective.gif)
+![Detective conversation to adaptive case board](docs/demos/detective.gif)
 
-Demo fixtures are in [`scripts/demo-fixtures.mjs`](scripts/demo-fixtures.mjs).
+The moonbase and mystery runs needed follow-up prompts asking the model to use smaller payloads. Invalid JSON remains an experimental limitation; the recordings shorten those troubleshooting intervals. A later mystery checklist update also failed and is not included. The separate [`scripts/demo-fixtures.mjs`](scripts/demo-fixtures.mjs) file contains scripted sample data, not the source of these live-generated views.
 
 ## Build and install
 
