@@ -1,0 +1,30 @@
+import express from 'express';
+import { resolve } from 'node:path';
+import { timingSafeEqual } from 'node:crypto';
+import { z } from 'zod';
+import { action,state,edit } from './store.ts';
+import {toolInputSchema} from './tool-input.ts';
+const app=express(),port=Number(process.env.ADAPTIVE_WORKSPACE_PORT??3283);
+const token=process.env.ADAPTIVE_WORKSPACE_TOKEN;if(!token)throw new Error('Missing host token');
+const origin=`http://127.0.0.1:${port}`;
+app.use((req,res,next)=>{
+ if(![`127.0.0.1:${port}`,`localhost:${port}`].includes(req.headers.host??''))return res.sendStatus(403);
+ if(req.path.endsWith('/opened')){res.setHeader('Access-Control-Allow-Origin','*');return next();}
+ if(req.headers.origin&&![origin,`http://localhost:${port}`].includes(req.headers.origin))return res.sendStatus(403);
+ if(req.headers['sec-fetch-site']==='cross-site'&&!(req.method==='GET'&&req.path==='/'))return res.sendStatus(403);
+ res.setHeader('X-Content-Type-Options','nosniff');
+ res.setHeader('Content-Security-Policy',`frame-ancestors 'self' ${process.env.HERO_HARNESS_ORIGIN??'http://127.0.0.1:3280'} dsh-app://app`);next();
+});
+app.use(express.json({limit:'512kb'}));
+app.use('/internal',(req,res,next)=>{const a=Buffer.from(req.headers.authorization??''),b=Buffer.from('Bearer '+token);if(a.length!==b.length||!timingSafeEqual(a,b))return res.sendStatus(401);next();});
+app.get('/internal/health',(_req,res)=>res.sendStatus(200));
+const session=z.string().min(1).max(180).regex(/^[a-zA-Z0-9_-]+$/);
+app.post('/internal/action',(req,res)=>{const a=toolInputSchema.parse(req.body);res.json(action(a.sessionId,a.action,a.payload));});
+app.get('/api/harness/:id/opened',(req,res)=>res.json({opened:state(session.parse(req.params.id)).opened}));
+app.get('/api/harness/:id/workspace',(req,res)=>res.json(state(session.parse(req.params.id))));
+app.patch('/api/harness/:id/workspace',(req,res)=>res.json(edit(session.parse(req.params.id),req.body)));
+app.use('/api',(_req,res)=>res.sendStatus(404));
+app.use(express.static(resolve(import.meta.dirname,'../dist')));
+app.use((err:Error,_req:express.Request,res:express.Response,_next:express.NextFunction)=>res.status(400).json({error:err.message}));
+const server=app.listen(port,'127.0.0.1',()=>console.log('Adaptive workspaces: '+origin));
+for(const signal of ['SIGINT','SIGTERM'] as const)process.once(signal,()=>{server.close();process.exit(0);});

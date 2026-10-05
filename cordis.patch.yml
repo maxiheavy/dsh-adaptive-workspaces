@@ -1,0 +1,6 @@
+- insert:
+    - id: adaptive-workspaces
+      name: '@maxi/adaptive-workspaces'
+      config:
+        bridgeUrl: 'http://127.0.0.1:3283'
+        dataDir: !!js process.env.ADAPTIVE_WORKSPACE_DATA_DIR

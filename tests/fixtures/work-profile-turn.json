@@ -1,0 +1,9 @@
+{
+  "source": "Recorded Qwen/Darkstar Harness MCP tool call; IDs and timings omitted",
+  "tool": "open_work_profile",
+  "arguments": {
+    "profile": "video_editing",
+    "title": "Fern Video Editing",
+    "layout_json": "{\"root\":\"workspace\",\"elements\":{\"workspace\":{\"type\":\"Workspace\",\"props\":{\"title\":\"Fern Video Editing\"},\"children\":[\"preview\",\"timeline\",\"media\",\"projects\",\"transcript\",\"jobs\",\"notes\"]},\"preview\":{\"type\":\"VideoPreview\",\"props\":{\"title\":\"Preview\"}},\"timeline\":{\"type\":\"Timeline\",\"props\":{\"title\":\"Assembly\"}},\"media\":{\"type\":\"MediaLibrary\",\"props\":{\"title\":\"Media\"}},\"projects\":{\"type\":\"FernProjects\",\"props\":{\"title\":\"Descript projects\"}},\"transcript\":{\"type\":\"Transcript\",\"props\":{\"title\":\"Transcript\"}},\"jobs\":{\"type\":\"JobMonitor\",\"props\":{\"title\":\"Fern activity\"}},\"notes\":{\"type\":\"Notes\",\"props\":{\"title\":\"Review before editing\",\"body\":\"Select footage or a Descript project, review the transcript, then propose the edit.\"}}}}"
+  }
+}
